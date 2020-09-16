@@ -74,7 +74,7 @@ class LG_model(nn.Module):
         super(LG_model, self).__init__()
         self.feature_extractor = feature_extractor(num_input_channels)
         self.global_average = GlobalAvgPool2d()
-        self.classifier = nn.Linear(64, 2)
+        self.classifier = nn.Linear(64*3, 2)
 
     def forward(self, img_x, img_y, img_z):
         # dim: (N,C,H,W)

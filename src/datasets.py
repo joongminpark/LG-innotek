@@ -17,6 +17,8 @@ import random
 class LGDatasets(Dataset):
     def __init__(self, file_path):
         self.file_path = file_path
+        directory, filename = os.path.split(file_path)
+        self.directory = directory
 
         # load preprocessed files
         with open(file_path, "rb") as f:
@@ -35,7 +37,7 @@ class LGDatasets(Dataset):
         ])
     
     def __getitem__(self, item):
-        raw_dir = "./DB/raw_data"
+        raw_dir = os.path.join(self.directory, 'raw_data')
         x_y_z_file_path = list(
             map(lambda x: raw_dir + '/' + x, self.aggregate_data[item][:3])
         )
@@ -46,10 +48,10 @@ class LGDatasets(Dataset):
         img_x, img_y, img_z = map(self.transform, x_y_z_images)
 
         # loading labels
-        label = torch.tensor(self.labels[item], dtype=torch.float)
+        label = torch.tensor(self.labels[item], dtype=torch.long)
 
         return img_x, img_y, img_z, label
 
 
     def __len__(self):
-        return len(self.abnormal_data)
+        return len(self.aggregate_data)

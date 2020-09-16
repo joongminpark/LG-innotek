@@ -1,0 +1,1 @@
+python -m train --train_data_file ../DB/train_lg.pkl --eval_data_file ../DB/test_lg.pkl --output_dir ../output/ --train_batch_size 28 --eval_batch_size 28 --learning_rate 0.001 --num_train_epochs 100 --sample_criteria abnormal --do_train
